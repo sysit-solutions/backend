@@ -6,10 +6,11 @@ export PROJECT_ROOT="${BIN_DIR}/.."
 . "${PROJECT_ROOT}/name.py"
 export VIRTUALENV=${VIRTUALENV:="${app_name}"}
 export FREENIT_ENV=${FREENIT_ENV:="prod"}
-export SYSPKG=${SYSPKG:="no"}
+export SYSPKG=${SYSPKG:="yes"}
 
 
 setup() {
+  cd ${PROJECT_ROOT}
   if [ "${SYSPKG}" = "no" ]; then
     update=${1}
     if [ ! -d ${HOME}/.virtualenvs/${VIRTUALENV} ]; then
@@ -21,7 +22,6 @@ setup() {
     if [ "${FREENIT_ENV}" = "prod" ]; then
       INSTALL_TARGET="."
     fi
-    cd ${PROJECT_ROOT}
     if [ "${update}" != "no" ]; then
       pip install -U pip
       pip install -U wheel
