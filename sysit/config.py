@@ -16,6 +16,6 @@ except ImportError:
     from .base_config import ProdConfig
 
 
-configs[DevConfig.envname] = DevConfig()
-configs[TestConfig.envname] = TestConfig()
-configs[ProdConfig.envname] = ProdConfig()
+configs[DevConfig.envname()] = DevConfig()
+configs[TestConfig.envname()] = TestConfig()
+configs[ProdConfig.envname()] = ProdConfig()

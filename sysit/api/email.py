@@ -5,14 +5,14 @@ from smtplib import SMTP
 
 from fastapi import HTTPException
 from freenit.config import getConfig
-from freenit.decorators import route
 
-from ..models.email import models
-from .router import api
+from ..models.email import Email
+from .router import route
+
+config = getConfig()
 
 
 def sendmail(message):
-    config = getConfig()
     mail = config.mail
     if None not in [mail.host, mail.username, mail.password]:
         server = SMTP(host=mail.host, port=mail.port)
@@ -28,14 +28,14 @@ def sendmail(message):
         msg["From"] = message.email
         msg["Message-ID"] = make_msgid()
         msg["Date"] = formatdate(localtime=True)
-        data = msg.as_string().encode('utf-8')
-        print(data)
+        data = msg.as_string().encode("utf-8")
         server.sendmail(message.email, [to], data)
 
 
-@route(api, "/email/feedback", models=models, tags=["email"])
+@route("/email/feedback", tags=["email"])
 class EmailFeedback:
-    async def create(message: models.base):
+    @staticmethod
+    async def post(message: Email) -> Email:
         try:
             sendmail(message)
         except smtplib.SMTPAuthenticationError:

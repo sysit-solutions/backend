@@ -11,25 +11,22 @@ class MailConfig:
 
 
 class BaseConfig(FreenitBaseConfig):
-    name = "NAME"
+    name = "SysIT"
     version = "0.0.1"
     mail = MailConfig("mail.tilda.center", "office@sysit.solutions", "SisAjTi")
 
 
 class DevConfig(BaseConfig):
-    envname = "dev"
     debug = True
     cookie_secure = False
     dburl = "sqlite:///db.sqlite"
 
 
 class TestConfig(BaseConfig):
-    envname = "test"
     debug = True
     cookie_secure = False
     dburl = "sqlite:///test.sqlite"
 
 
 class ProdConfig(BaseConfig):
-    envname = "prod"
     secret = "MORESECURESECRET"

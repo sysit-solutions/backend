@@ -1,1 +1,1 @@
-from freenit.api.router import api
+from freenit.api.router import api, route
